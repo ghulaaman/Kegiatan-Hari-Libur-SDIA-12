@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Daftar Kehadiran Hari Libur SDIA 12 Periode Desember 2025 - Januari 2026</title>
+</head>
+<body>
+
+<h2>Daftar Kehadiran Hari Libur SDIA 12 Periode Desember 2025 - Januari 2026</h2>
+
+<input id="nama" placeholder="Ketik nama pegawai">
+<button onclick="cari()">Cari</button>
+
+<table border="1" cellpadding="5" style="margin-top:15px">
+<thead>
+<tr>
+  <th>Nama Pegawai</th>
+  <th>Jabatan</th>
+  <th>Hari</th>
+  <th>Tanggal Tugas</th>
+  <th>Kegiatan</th>
+</tr>
+</thead>
+<tbody id="hasil"></tbody>
+</table>
+
+<script>
+let data = [];
+
+fetch("data.json")
+  .then(r => r.json())
+  .then(j => data = j);
+
+function cari() {
+  let key = document.getElementById("nama").value.toLowerCase();
+  let hasil = document.getElementById("hasil");
+  hasil.innerHTML = "";
+
+  data
+    .filter(d => d["Nama Pegawai"].toLowerCase().includes(key))
+    .forEach(d => {
+      hasil.innerHTML += `
+        <tr>
+          <td>${d["Nama Pegawai"]}</td>
+          <td>${d["Jabatan"]}</td>
+          <td>${d["Hari"]}</td>
+          <td>${d["Tanggal Tugas"]}</td>
+          <td>${d["Kegiatan"]}</td>
+        </tr>
+      `;
+    });
+}
+</script>
+
+</body>
+</html>
